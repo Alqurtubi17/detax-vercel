@@ -1,0 +1,82 @@
+{%extends 'base.html'%}
+{%block contentC%}
+<header class="masthoax text-white">
+    <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-9 mx-auto text-center">
+                  <h1 class="mb-2" style="color:white;">Identifikasi Narasi Hoax menggunakan Artificial Intelligence</h1>
+                  <p class="lead mb-30" style="color:white;"><b>Kelompok Purwoagung 2 KKN-BBK 2 Univeristas Airlangga</b></p>
+                </div>
+                <br><br><br><br><br>
+                <div class="col-md-10 col-lg-8 col-xl-7 mx-auto text-center">
+                    <div x-data="predictFunction()" class="d-flex justify-content-center">
+                        <div class="input-group input-group-lg mb-3 rounded-circle">
+                            <input type="text" name="text_narration" id="text_narration" style="height:3rem; width:20rem; border-radius:15px; border:none;" class="form-control" autocomplete="off" required placeholder="Masukkan Narasi / Pesan">
+                            <div class="input-group-append">
+                                <button @click="changeLoading()" class="btn btn-primary btn-block btn-large predict-btn" style="height:3rem; border-radius:15px; margin-left: -30px; border:none; z-index:10;">
+                                    Submit
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+                    <div x-if="!isLoading" class="mb-5 flex flex-col justify-center items-center tracking-wide">
+                        <div id="type-result" class="hidden">
+                            <span id="text-result" class="font-normal"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="text-white">*AI tidak melakukan pengecekan fakta berita, Hasil klasifikasi berita ditentukan dari cara penulisan.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+</header>
+      <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+      <script>
+          function predictFunction() {
+              return {
+                isLoading: false,
+                changeLoading(){
+                    this.isLoading = !this.isLoading;
+                    this.make_prediction();
+                },
+                make_prediction() {
+                    setTimeout(() => {
+                        try {
+                        let text_narration = document.getElementById('text_narration').value;
+                        if(text_narration === ""){
+                            alert("Insert your text");
+                        }else{
+                            document.getElementById("type-result").className = "hidden";
+                            let textObj = {"text_narration": text_narration};
+
+                            (async () => {
+                                const response = await axios.post('/api/v1/predict', textObj);
+                                let json_resp = JSON.parse(JSON.stringify(response));
+                                let label = json_resp.data.prediction.label;
+                                let prob = json_resp.data.prediction.predicted_label;
+                                
+                                if (label == 0) {
+                                    document.getElementById("type-result").className = "w-full rounded-5 bg-hijau p-5";
+                                    document.getElementById("text-result").innerHTML = "<span class='fw-bold mb-3'>Prediction : "+ (prob*100).toPrecision(4) + "% - Bukan Hoax </span>" + "</br><span class='fw-bold'>Text :</span> " + text_narration;
+                                    document.getElementById("loading-animation").className = "hidden";
+                                }else if (label == 1) {
+                                    document.getElementById("type-result").className = "w-full rounded-5 bg-merah p-5";
+                                    document.getElementById("text-result").innerHTML = "<span class='fw-bold mb-3'>Prediction : "+ (prob*100).toPrecision(4) + "% - Hoax </span>" + "</br><span class='fw-bold'>Text :</span> " + text_narration;
+                                    document.getElementById("loading-animation").className = "hidden";
+                                }
+                            })()
+                            }
+                        } catch (error) {
+                            console.log(error)
+                        }
+                    }, 500);
+                }
+              }
+          }
+      </script>
+{%endblock contentC%}

@@ -1,0 +1,26 @@
+{%extends 'base.html'%}
+{% block contentF %}
+<section class="" style="padding-top: 4rem !important; background-color: #fff; padding-bottom: 3.9rem;">
+    <div class="container" style="position: relative; ">
+      <div class="row align-items-center" style="align-items: center; -ms-flex-align: center; -webkit-box-align: center;">
+        <div class="col-md-8" style="flex: auto; width: 50%; padding-top: 3rem !important; padding-bottom: 3rem !important; text-align: left !important; text-align: center;">
+          <h1 style="margin-bottom: 1.8rem !important; font-size: 2.88651rem !important; font-weight: 700 !important;">Detax (Deteksi Berita Hoax)</h1>
+            <p style="font-size: 1.2rem; font-weight: 400; color: #544837 !important;">
+                Temukan kebenaran di balik berita. Bersama kecerdasan buatan (AI), 
+            </p>
+            <p style="margin-top: -1rem; margin-bottom: 3rem !important; font-size: 1.2rem; font-weight: 400; color: #544837 !important;">
+                lawan penyebaran berita hoax dan ciptakan dunia informasi yang terpercaya.
+            </p>
+          <div class="text-center text-md-start">
+            <a href="{{url_for('news')}}" class="btn" style="border-width: 2px; background: #00d2b5; border-color: #00d2b5; color: #fff; font-size: 16px; border-radius: 30px; padding: 10px 30px;">Berita</a>
+            <a href="{{url_for('hoax')}}" class="btn" style="border-width: 2px; background: #00d2b5; border-color: #00d2b5; color: #fff; font-size: 16px; border-radius: 30px; padding: 10px 30px;">Narasi</a>
+          </div>
+        </div>
+        <div class="col-md-8" style="-webkit-box-flex: 0; width: 40%;">
+          <img style="padding-top: 4rem; padding-top: 0; max-width: 100%; height: auto;" src="static/assets/homepage.png" alt="" />
+        </div>
+      </div>
+    </div>
+  </section>
+  
+{%endblock contentF%}

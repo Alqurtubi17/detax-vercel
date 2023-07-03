@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detax</title>
+    <link rel="icon" href="{{ url_for('static', filename='assets/logo.png') }}">
+    <!-- Bootstrap 5 CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <!-- CSS file -->
+    <link rel="stylesheet" href="{{url_for('static',filename='main.css')}}">
+
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{{url_for('base')}}"><img src="{{ url_for('static', filename='assets/logo-detax.png') }}" class="logo" alt=""></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse nav-item" id="navbarTogglerDemo02">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0" id="menu">
+            <li class="nav-item">
+              <a class="nav-link {{ 'active' if active_page == 'home' else '' }}" href="{{url_for('base')}}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {{ 'active' if active_page == 'berita' else '' }}" href="{{url_for('news')}}">Berita</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {{ 'active' if active_page == 'narasi' else '' }}" href="{{url_for('hoax')}}">Narasi</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {{ 'active' if active_page == 'news_feed' else '' }}" href="{{url_for('news_feed')}}">News Feed</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {{ 'active' if active_page == 'about_us' else '' }}" href="{{url_for('about_us')}}">About Us</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </head>
+  <body>
+    {% block contentF %}
+    {% endblock contentF %}
+    {% block contentA %}
+    {% endblock contentA %}
+    {% block contentB %}
+    {% endblock contentB %}
+    {% block contentC %}
+    {% endblock contentC %}
+    {% block contentD %}
+    {% endblock contentD %}
+    {% block contentE %}
+    {% endblock contentE %}
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+</body>
+</html>
